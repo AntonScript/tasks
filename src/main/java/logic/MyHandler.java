@@ -54,11 +54,6 @@ public class MyHandler implements Runnable{
                        executorService.submit(new Loader(planes.get(cityNames), cargoStorage.get(cityNames), lockState, cityNames));
                    }
                }
-               try {
-                   Thread.sleep(1000);
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }
                if(lock) {
                    try {
                        System.out.println("нет возможности выполнить загрузку поэтому поток приостановлен пока не будет добавлен груз или самолет");
