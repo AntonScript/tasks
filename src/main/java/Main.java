@@ -1,5 +1,5 @@
 import logic.MyHandler;
-import model.Cargo;
+import model.CargoStorage;
 import model.Plane;
 
 import java.util.*;
@@ -7,20 +7,15 @@ import java.util.concurrent.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        Object m = new Object();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
-        Map<String, ArrayDeque<Cargo>> cargoStorage =  new HashMap<>();
-        Map<String, ArrayDeque<Plane>> planeStorage =  new HashMap<>();
+        Map<String, CargoStorage> cargoStorage =  new HashMap<>();
+        Map<String,  ArrayDeque<Plane>> planes = new HashMap<>();
         Set<String>  lockState = ConcurrentHashMap.newKeySet();
-        new Init(cargoStorage,planeStorage);
-        MyHandler myHandler = new MyHandler(cargoStorage,planeStorage,executorService,lockState);
+        new Init(cargoStorage,planes);
+        MyHandler myHandler = new MyHandler(cargoStorage,planes,executorService,lockState,m);
         executorService.execute(myHandler);
-       /* try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        myHandler.notifyAll();*/
-
-
+        
     }
 }

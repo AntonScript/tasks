@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Plane {
     private Integer volume;
     private PlaneType type;
@@ -33,5 +35,27 @@ public class Plane {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plane plane = (Plane) o;
+        return Objects.equals(volume, plane.volume) && type == plane.type && Objects.equals(endpoint, plane.endpoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(volume, type, endpoint);
+    }
+
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "volume=" + volume +
+                ", type=" + type +
+                ", endpoint='" + endpoint + '\'' +
+                '}';
     }
 }
